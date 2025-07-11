@@ -11,13 +11,15 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Debug middleware
-app.use((req, res, next) => {
-  console.log(`${req.method} ${req.path}`);
-  console.log("Headers:", req.headers["content-type"]);
-  console.log("Raw body:", req.body);
-  next();
-});
+// Debug middleware (only in development)
+if (process.env.NODE_ENV !== "production") {
+  app.use((req, res, next) => {
+    console.log(`${req.method} ${req.path}`);
+    console.log("Headers:", req.headers["content-type"]);
+    console.log("Raw body:", req.body);
+    next();
+  });
+}
 
 // Session setup
 app.use(
