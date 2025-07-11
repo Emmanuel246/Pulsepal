@@ -3,9 +3,22 @@ const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
+const cors = require("cors");
 const path = require("path");
 
 const app = express();
+
+// CORS Configuration - Allow all origins
+const corsOptions = {
+  origin: true, // Allow all origins
+  credentials: true, // Allow cookies and credentials
+  optionsSuccessStatus: 200, // For legacy browser support
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "x-goog-api-key"],
+};
+
+// Apply CORS middleware
+app.use(cors(corsOptions));
 
 // Middleware
 app.use(express.json());
